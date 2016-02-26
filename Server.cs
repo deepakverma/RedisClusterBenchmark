@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-        using System;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
+
 namespace Cluster
 {
 
@@ -42,7 +40,7 @@ namespace Cluster
             // Establish the local endpoint for the socket.
             // The DNS name of the computer
             // running the listener is "host.contoso.com".
-            IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
+            IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
             IPAddress ipAddress = ipHostInfo.AddressList[0];
             IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, port);
 
@@ -107,6 +105,7 @@ namespace Cluster
               Console.WriteLine(ex.Message);
           }
         }
+
         static long totalrps=0;
         static long clientid;
         static Dictionary<long,long> totalclients = new Dictionary<long,long>();
@@ -126,36 +125,17 @@ namespace Cluster
 
                 if (bytesRead > 0)
                 {
-                    // There  might be more data, so store the data received so far.
-                    // state.sb.Append(Encoding.ASCII.GetString(
-                    //   state.buffer, 0, bytesRead));
-
-                    // Check for end-of-file tag. If it is not there, read 
-                    // more data.
                     content = Encoding.ASCII.GetString(state.buffer, 0, bytesRead);
                     //Console.WriteLine(content);
                     long tmp;
                     long.TryParse(content, out tmp);
                     totalclients[clientid] = tmp;
-                    //string [] rps = content.Split(new char[] { ',' },StringSplitOptions.RemoveEmptyEntries);
                     lock (totalclients)
                     {
                         Console.WriteLine("Total RPS across all clients: {0}", totalclients.Sum(x => x.Value));
                     }
-                    //  if (content.IndexOf("<EOF>") > -1)
-                    //{
-                    // All the data has been read from the 
-                    // client. Display it on the console.
-                    // Console.WriteLine(totalrps + "\r\n");
-                    // Echo the data back to the client.
-                    //Send(handler, content);
-                    //}
-                    //else
-                    //{
-                    // Not all data received. Get more.
                     handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
                     new AsyncCallback(ReadCallback), state);
-                    // }
                 }
             }
             catch(Exception ex) {

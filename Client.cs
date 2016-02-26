@@ -36,42 +36,16 @@ public class AsynchronousClient
         // Connect to a remote device.
         try
         {
-            // Establish the remote endpoint for the socket.
-            // The name of the 
-            // remote device is "host.contoso.com".
-            IPHostEntry ipHostInfo = Dns.Resolve(RPSServer);
-            IPAddress ipAddress = ipHostInfo.AddressList[0];
-            IPEndPoint remoteEP = new IPEndPoint(ipAddress, RPSPort);
 
             // Create a TCP/IP socket.
             Socket client = new Socket(AddressFamily.InterNetwork,
                 SocketType.Stream, ProtocolType.Tcp);
-
+            
             // Connect to the remote endpoint.
-            client.BeginConnect(remoteEP,
+            client.BeginConnect(RPSServer,RPSPort,
                 new AsyncCallback(ConnectCallback), client);
             connectDone.WaitOne();
 
-            // Send test data to the remote device.
-            //try
-            //{
-            //    Send(client, "<EOF>");
-            //    sendDone.WaitOne();
-
-            //    // Receive the response from the remote device.
-            //    Receive(client);
-            //    receiveDone.WaitOne();
-
-            //    // Write the response to the console.
-            //    Console.WriteLine("Response received : {0}", response);
-            //}
-            //catch { }
-            //finally
-            //{
-            //    // Release the socket.
-            //    client.Shutdown(SocketShutdown.Both);
-            //    client.Close();
-            //}
             return client;
         }
         catch (Exception e)
@@ -93,13 +67,16 @@ public class AsynchronousClient
 
             Console.WriteLine("Socket connected to {0}",
                 client.RemoteEndPoint.ToString());
-
-            // Signal that the connection has been made.
-            connectDone.Set();
+           
         }
         catch (Exception e)
         {
             Console.WriteLine(e.ToString());
+        }
+        finally
+        {
+            // Signal that the connection has been made.
+            connectDone.Set();
         }
     }
 
@@ -158,7 +135,6 @@ public class AsynchronousClient
             Console.WriteLine(e.ToString());
         }
     }
-    Socket client;
     public static void Send(Socket client,double data)
     {
         // Convert the string data to byte data using ASCII encoding.
