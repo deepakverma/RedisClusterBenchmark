@@ -1,4 +1,4 @@
-﻿using Cluster;
+﻿using ClusterBenchmark;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Net.Sockets;
 using System.Reflection;
 using System.Threading;
 
-namespace Cluster
+namespace ClusterBenchmark
 {
     public class Program
     {
