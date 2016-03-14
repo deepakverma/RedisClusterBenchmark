@@ -23,12 +23,12 @@ namespace ClusterBenchmark
         public long clientid=0;
     }
 
-    public class AsynchronousSocketListener
+    public class BenchmarkServer
     {
         // Thread signal.
         public static ManualResetEvent allDone = new ManualResetEvent(false);
 
-        public AsynchronousSocketListener()
+        public BenchmarkServer()
         {
         }
 
@@ -132,7 +132,7 @@ namespace ClusterBenchmark
                     totalclients[clientid] = tmp;
                     lock (totalclients)
                     {
-                        Console.WriteLine("Total RPS across all clients: {0}", totalclients.Sum(x => x.Value));
+                        Console.WriteLine("Total RPS across {0} client(s): {1}", totalclients.Count, totalclients.Sum(x => x.Value));
                     }
                     handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
                     new AsyncCallback(ReadCallback), state);

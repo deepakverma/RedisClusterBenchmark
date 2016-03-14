@@ -17,7 +17,7 @@ public class StateObject
     public StringBuilder sb = new StringBuilder();
 }
 
-public class AsynchronousClient
+public class BenchmarkClient
 {
 
     // ManualResetEvent instances signal completion.
