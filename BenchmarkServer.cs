@@ -131,13 +131,14 @@ namespace ClusterBenchmark
                     totalclients[clientid] = tmp;
                     lock (totalclients)
                     {
-                        Console.WriteLine("Total RPS across {0} client(s): {1}", totalclients.Count, totalclients.Sum(x => x.Value));
+                        Console.WriteLine("Total RPS across {0} cluster-benchmark client(s): {1}", totalclients.Count, totalclients.Sum(x => x.Value));
                     }
                     handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
                     new AsyncCallback(ReadCallback), state);
                 }
             }
             catch(Exception ex) {
+                totalclients[clientid] = 0;
                 Console.Write(ex.Message);
             }
         }
