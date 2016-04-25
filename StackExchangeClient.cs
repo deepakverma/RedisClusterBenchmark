@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ClusterBenchmark
 {
-    class StackExchangeClient : ClusterBenchmark.IClient
+    class StackExchangeClient : IClient
     {
         private IDatabase[] dbs;
         public ConfigurationOptions ConfigOptions { get; private set; }
@@ -25,7 +25,7 @@ namespace ClusterBenchmark
         {
             var config = new ConfigurationOptions();
             config.EndPoints.Add(options.redisserver, options.redisport);
-            config.Ssl = options.ssl;
+            config.Ssl = !options.nonssl;
             config.Password = options.password;
             config.AllowAdmin = true;
             return config;
@@ -48,6 +48,11 @@ namespace ClusterBenchmark
                 }
             }
             return true;
+        }
+
+        public Task<bool> StringSetAsync(long clientid, string key, string value)
+        {
+            return dbs[clientid].StringSetAsync(key, value);
         }
 
         public Task<RedisValue> StringGetAsync(long clientid, string key)

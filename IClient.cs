@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StackExchange.Redis;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ namespace ClusterBenchmark
         {
             bool CreateClients();
             string[] SetupCluster();
-            Task<StackExchange.Redis.RedisValue> StringGetAsync(long clientid, string key);
+            Task<bool> StringSetAsync(long clientid, string key, string value);
+            Task<RedisValue> StringGetAsync(long clientid, string key);
         }
 }

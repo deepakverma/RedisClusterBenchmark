@@ -1,8 +1,8 @@
 ﻿using ClusterBenchmark;
-using ServiceStack.Redis;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -17,11 +17,15 @@ namespace ClusterBenchmark
         private long _requests = 0;
         private long _responses = 0;
         private readonly Random _rand = new Random();
-        private IDatabase[] _dbs;
 
         static void Main(string[] args)
         {
             Program prog = new Program();
+            if(File.Exists("args.txt"))
+            {
+                //args = File.ReadAllText("args.txt").Split(null);
+
+            }
             var options = Options.Parse(args);
             Socket rpsserver = null;
 

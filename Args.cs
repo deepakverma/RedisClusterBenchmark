@@ -11,7 +11,7 @@ namespace ClusterBenchmark
 
     public class Options
     {
-        [Option('m',"servermode",HelpText = "Run in server mode")]
+        [Option('m',"cbservermode",HelpText = "Run cluster-benchmark in server mode")]
         public bool servermode { get; set; }
 
         [Option('h', "redishostname", Required = false, HelpText = "Server Hostname")]
@@ -23,8 +23,8 @@ namespace ClusterBenchmark
         [Option('p', "redisport", HelpText = "Redis Server port. Default 6379")]
         public int redisport { get; set; }
 
-        [Option("ssl", DefaultValue=true, HelpText = "Use SSL connection")]
-        public bool ssl { get; set; }
+        [Option("nonssl", DefaultValue=false, HelpText = "Use SSL connection")]
+        public bool nonssl { get; set; }
         
         [Option('c', "clients", DefaultValue = 1, HelpText = "Number of client connection to create")]
         public int clients { get; set; }
@@ -69,7 +69,6 @@ namespace ClusterBenchmark
         public static Options Parse(string[] args)
         {
             Options options = new Options();
-
             if (!Parser.Default.ParseArguments(args, options))
             {
                 return null;
@@ -80,13 +79,13 @@ namespace ClusterBenchmark
                 Console.WriteLine(options.GetUsage());
                 return null;
             }
-            if (options.ssl == true && options.redisport == 0)
-            {
-                options.redisport = 6380;
-            }
-            if (options.ssl == false && options.redisport == 0)
+            if (options.nonssl == true && options.redisport == 0)
             {
                 options.redisport = 6379;
+            }
+            if (options.nonssl == false && options.redisport == 0)
+            {
+                options.redisport = 6380;
             }
             return options;
         }

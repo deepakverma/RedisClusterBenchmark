@@ -4,7 +4,7 @@
     cluster-benchmark.exe -h&nbsp; *.redis.cache.windows.net -a &lt;redis-password&gt;
 </p>
 <p>
-    tool would detect if it&#39;s a cluster or a non-cluster cache, helping to measure RPS using the same commandline against a non-cluster cache.</p>
+    tool would detect if it&#39;s a cluster or a non-cluster cache</p>
 <p>
     <strong>Steps to measure Cluster Throughput by placing load from multiple VMs</strong></p>
 <p>

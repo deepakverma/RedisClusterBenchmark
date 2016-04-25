@@ -106,7 +106,6 @@ namespace ClusterBenchmark
           }
         }
 
-        static long totalrps=0;
         static long clientid;
         static Dictionary<long,long> totalclients = new Dictionary<long,long>();
         public static void ReadCallback(IAsyncResult ar)
