@@ -1,4 +1,23 @@
-﻿<p>
+﻿<pre>
+  cluster -h dvperf4shard.redis.cache.windows.net  -a password -s 127.0.0.1
+
+  -m, --cbservermode     Run cluster-benchmark in server mode
+  -h, --redishostname    Server Hostname
+  -a, --redispassword    Redis Server password
+  -p, --redisport        Redis Server port. Default 6379
+  --nonssl               (Default: False) Use SSL connection
+  -c, --clients          (Default: 1) Number of client connection to create
+  -d, --datasize         (Default: 1024) Value size in bytes
+  -w, --warmup           (Default: 5000) Warm up period before running the
+                         tests
+  --cbserver             cluster-benchmark server endpoint
+  --cbport               (Default: 6400) cluster-benchmark server port
+  -k, --keyprefix        (Default: __clusterbenchmark_test) Key prefix of the
+                         keys this tool will be creating to perform operations
+  -v, --verbose
+  --help                 Display this help screen.
+</pre>
+  <p>
     <strong>Measure Cluster Throughput from a single VM</strong></p>
 <p>
     cluster-benchmark.exe -h&nbsp; *.redis.cache.windows.net -a &lt;redis-password&gt;
@@ -19,13 +38,13 @@
 <p>
     4. One one of the IAAS Vm&#39;s run the tool in server mode<br />
 &nbsp;&nbsp;&nbsp; for example on clustlerload.cloudapp.net VM you run<br />
-&nbsp;&nbsp; <strong>&nbsp;cluster-benchmark.exe --servermode&nbsp;
+&nbsp;&nbsp; <strong>&nbsp;cluster-benchmark.exe --cbservermode&nbsp;
     <br />
     </strong>
 </p>
 <p>
     5. One each of the VM&#39;s including the one running the server run the following command<br />
-    <strong>&nbsp;&nbsp; cluster-benchmark.exe -h&nbsp; *.redis.cache.windows.net -a &lt;redis-password&gt; --server clusterload.cloudapp.net<br />
+    <strong>&nbsp;&nbsp; cluster-benchmark.exe -h&nbsp; *.redis.cache.windows.net -a &lt;redis-password&gt; --cbserver clusterload.cloudapp.net<br />
     </strong>&nbsp;&nbsp;&nbsp; --server is set to the IAAs vm name where you are running the tool in the server mode.</p>
 <p>
     6. On the node where you were running the tool in server mode, it would output the aggregated RPS</p>
