@@ -26,7 +26,10 @@
     The tool would automatically detect if it&#39;s a cluster or a non-cluster cache.
     It would evenly distribute keys across shard and measure the cluster throughput </p>
 <p>
-    <strong>Steps to measure Cluster Throughput by placing load from multiple VMs</strong></p>
+    <strong>Measure Throughput Using multiple VMs</strong></p>
+<p> You could get CPU or network bound on a single client VM while trying to measure a cluster cache. 
+To solve this, the tool can be run across multiple client VMs to aggregate the total throughput a cluster can provide. 
+This is done by running a copy of the tool as server and then several copies of it can be run as client on multiple machines.</p>
 <p>
     1. Create a Redis Cache with n shards</p>
 <p>
