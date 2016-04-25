@@ -18,7 +18,7 @@
   --help                 Display this help screen.
 </pre>
   <p>
-    <strong>Measure Cluster Throughput from a single VM</strong></p>
+    <strong>Measure throughput from a single VM</strong></p>
 <p>
    usage: cluster-benchmark.exe -h&nbsp; *.redis.cache.windows.net -a &lt;redis-password&gt;
 </p>
@@ -26,7 +26,7 @@
     The tool would automatically detect if it&#39;s a cluster or a non-cluster cache.
     It would evenly distribute keys across shard and measure the cluster throughput </p>
 <p>
-    <strong>Measure Throughput Using multiple VMs</strong></p>
+    <strong>Measure Cluster throughput using multiple VMs</strong></p>
 <p> You could get CPU or network bound on a single client VM while trying to measure a cluster cache. 
 To solve this, the tool can be run across multiple client VMs to aggregate the total throughput a cluster can provide. 
 This is done by running a copy of the tool as server and then several copies of it can be run as client on multiple machines.</p>
@@ -49,7 +49,7 @@ This is done by running a copy of the tool as server and then several copies of 
 <p>
     5. One each of the client VM&#39;s run the following command<br />
     <strong>&nbsp;&nbsp; cluster-benchmark.exe -h&nbsp; *.redis.cache.windows.net -a &lt;redis-password&gt; --cbserver clusterload.cloudapp.net<br />
-    </strong>&nbsp;&nbsp;&nbsp; --server is set to the IAAs vm name where you are running the tool in the server mode.</p>
+   </p>
 <p>
     6. On the node where you were running the tool in server mode, it would output the aggregated RPS</p>
 <p>
