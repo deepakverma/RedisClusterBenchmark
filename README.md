@@ -1,5 +1,5 @@
 ﻿<pre>
-  cluster -h dvperf4shard.redis.cache.windows.net  -a password -s 127.0.0.1
+  cluster -h *.redis.cache.windows.net  -a password -s 127.0.0.1
 
   -m, --cbservermode     Run cluster-benchmark in server mode
   -h, --redishostname    Server Hostname

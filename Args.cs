@@ -60,7 +60,7 @@ namespace ClusterBenchmark
             };
 
             help.AddPreOptionsLine("Usage: Server mode: Cluster --server ");
-            help.AddPreOptionsLine("cluster -h dvperf4shard.redis.cache.windows.net  -a password -s 127.0.0.1");
+            help.AddPreOptionsLine("cluster -h *.redis.cache.windows.net  -a password -s 127.0.0.1");
             help.AddOptions(this);
             return help;
         }
